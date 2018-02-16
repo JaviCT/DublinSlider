@@ -26,6 +26,7 @@ var before;
 var after;
 var finalId;
 var marker = [];
+var currentInfoWindow = null;
 
 function createMarker(icon){
 
@@ -38,9 +39,6 @@ function createMarker(icon){
         nameId = childSnapshot.val()['id'];
         lat = childSnapshot.val()['lat'];
         lng = childSnapshot.val()['lng'];
-        description = childSnapshot.val()['description'];
-        before = childSnapshot.val()['before'];
-        after = childSnapshot.val()['after'];
         var location = {lat: lat, lng: lng};
         marker[i] = new google.maps.Marker({id: i+1, position: location, map: map, icon: icon});
 
@@ -58,10 +56,15 @@ function createMarker(icon){
           content: contentString
         });
 
-        google.maps.event.addListener(marker[i], 'click', function () {
-          id = 1;
+         google.maps.event.addListener(marker[i], 'click', function() {
+          id = this.id;
+          console.log(id);
           createClickable();
-          infowindow1.open(map, marker[1]);
+          if (currentInfoWindow != null) {
+          currentInfoWindow.close();
+          }
+          infowindow1.open(map, this);
+          currentInfoWindow = infowindow1;
           var t = document.getElementById('myFigure');
           t.style.background = "url('"+before+"')";
           t.style.backgroundSize = "700px 500px";
@@ -85,6 +88,10 @@ function createClickable(){
 
         if (nameId == id){
           finalId = id;
+          console.log(finalId);
+          description = childSnapshot.val()['description'];
+          before = childSnapshot.val()['before'];
+          after = childSnapshot.val()['after'];
         }
       });
     });
