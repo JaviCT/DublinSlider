@@ -75,16 +75,23 @@ function createMarker(){
             infowindow1.open(map, this);
             currentInfoWindow = infowindow1;
             setTimeout(function() {
+              var img = new Image();
+              var img2 = new Image();
+              img.src = after;
+              img2.src = before;
               var t = document.getElementById('myFigure');
               t.style.background = "url('"+after+"')";
-              t.style.backgroundSize = "700px 500px";
               var z = document.getElementById('divisor');
               z.style.background = "url('"+before+"')";
-              z.style.backgroundSize = "700px 500px";
+              if (img.width >= img.height){
+                t.style.backgroundSize = "700px 500px";
+                z.style.backgroundSize = "700px 500px";
+              } else{
+                t.style.backgroundSize = "500px 700px";
+                z.style.backgroundSize = "500px 700px";
+              }
               var y = document.getElementById('desc');
               y.innerHTML=description;
-              var u = document.getElementById('id');
-              u.innerHTML= id;
             }, 600);
 
           });
@@ -92,7 +99,7 @@ function createMarker(){
           i = i + 1;
         }
     });
-    /*var styles = [
+    var styles = [
       [{
         url: 'https://googlemaps.github.io/js-marker-clusterer/images/people35.png',
         height: 35,
@@ -170,7 +177,7 @@ function createMarker(){
 
     markerClusterer = new MarkerClusterer(map, marker, {
       styles: styles[5]
-    });*/
+    });
   });
 }
 
