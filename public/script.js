@@ -25,10 +25,11 @@ var after;
 var finalId;
 var marker = [];
 var currentInfoWindow = null;
+var query = firebase.database().ref("photos");
 
 function createMarker(){
 
-  var query = firebase.database().ref("photos");
+
   query.orderByChild("id").once("value")
     .then(function(snapshot) {
       var i = 0;
@@ -56,12 +57,13 @@ function createMarker(){
           var slider = document.getElementById("slider");
           var handle = document.getElementById("handle");
 
-          var contentString = '<p id="id"></p><strong id="desc"></strong><div id="comparison"> '+
+          var contentString = '<div id="container"><p id="id"></p><strong id="desc"></strong><div id="comparison"> '+
             '<figure id="myFigure">' +
+              '<div id="handle"></div>' +
               '<div id="divisor"></div>' +
             '</figure>' +
             '<input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()">' +
-          '</div>';
+          '</div></div>';
           var infowindow1 = new google.maps.InfoWindow({
             content: contentString
           });
@@ -101,68 +103,33 @@ function createMarker(){
     });
     var styles = [
       [{
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/people35.png',
+        url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
         height: 35,
-        width: 35,
+        width: 45,
         anchor: [16, 0],
         textColor: '#ff00ff',
         textSize: 10
       }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/people45.png',
+        url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
         height: 45,
-        width: 45,
+        width: 55,
         anchor: [24, 0],
         textColor: '#ff0000',
         textSize: 11
       }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/people55.png',
+        url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
         height: 55,
-        width: 55,
+        width: 65,
         anchor: [32, 0],
         textColor: '#ffffff',
         textSize: 12
-      }],
-      [{
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/conv30.png',
-        height: 27,
-        width: 30,
-        anchor: [3, 0],
-        textColor: '#ff00ff',
-        textSize: 10
       }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/conv40.png',
-        height: 36,
-        width: 40,
-        anchor: [6, 0],
-        textColor: '#ff0000',
-        textSize: 11
-      }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/conv50.png',
-        width: 50,
+        url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
         height: 45,
-        anchor: [8, 0],
-        textSize: 12
-      }],
-      [{
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/heart30.png',
-        height: 26,
-        width: 30,
-        anchor: [4, 0],
-        textColor: '#ff00ff',
-        textSize: 10
-      }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/heart40.png',
-        height: 35,
-        width: 40,
-        anchor: [8, 0],
-        textColor: '#ff0000',
+        width: 55,
+        anchor: [24, 0],
+        textColor: '#fff000',
         textSize: 11
-      }, {
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/heart50.png',
-        width: 50,
-        height: 44,
-        anchor: [12, 0],
-        textSize: 12
       }],
       [{
         url: 'https://googlemaps.github.io/js-marker-clusterer/images/pin.png',
@@ -176,7 +143,7 @@ function createMarker(){
     ];
 
     markerClusterer = new MarkerClusterer(map, marker, {
-      styles: styles[5]
+      styles: styles[0]
     });
   });
 }
@@ -230,5 +197,6 @@ function initMap() {
 }
 
 function moveDivisor() {
-  divisor.style.width = slider.value+"%";
+  handle.style.left = slider.value+"%";
+	divisor.style.width = slider.value+"%";
 }
