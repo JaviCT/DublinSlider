@@ -82,13 +82,16 @@ function createMarker(){
               var t = document.getElementById('myFigure');
               t.style.background = "url('"+after+"')";
               var z = document.getElementById('divisor');
+              var u = document.getElementById('container');
               z.style.background = "url('"+before+"')";
               if (img.width >= img.height){
                 t.style.backgroundSize = "700px 500px";
                 z.style.backgroundSize = "700px 500px";
+                u.style.backgroundSize = "700px 500px";
               } else{
                 t.style.backgroundSize = "500px 700px";
                 z.style.backgroundSize = "500px 700px";
+                u.style.backgroundSize = "500px 700px";
               }
               var y = document.getElementById('desc');
               y.innerHTML=description;

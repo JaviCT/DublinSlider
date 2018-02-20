@@ -17,7 +17,6 @@ html,body{
   max-height: 600px;
 	overflow: hidden;
   position: relative;
-  background-repeat: no-repeat;
 }
 
 figure {
@@ -28,6 +27,7 @@ figure {
 	height: 100%;
 	margin: 0;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 #divisor {
