@@ -40,9 +40,7 @@ function createMarker(){
         lng = childSnapshot.val()['lng'];
         prev = childSnapshot.val()['after'];
         console.log(prev);
-        if (prev == 'undefined'){
-          prev = 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/belvedereschool%2Fbelvederehouse%20old.jpg?alt=media&token=3bece55b-41e6-4572-8319-a93c1afe4114';
-        }
+
         if (lat != null || lng != null || prev != null){
           var myIcon = {
             url: prev, // url
@@ -94,7 +92,7 @@ function createMarker(){
               }
               var y = document.getElementById('desc');
               y.innerHTML=description;
-            }, 600);
+            }, 800);
 
           });
           console.log(i);
@@ -104,41 +102,25 @@ function createMarker(){
     var styles = [
       [{
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 35,
-        width: 45,
+        height: 70,
+        width: 100,
         anchor: [16, 0],
-        textColor: '#ff00ff',
+        textColor: '#fff',
         textSize: 10
       }, {
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 45,
-        width: 55,
+        height: 70,
+        width: 100,
         anchor: [24, 0],
-        textColor: '#ff0000',
+        textColor: '#fff',
         textSize: 11
       }, {
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 55,
-        width: 65,
+        height: 70,
+        width: 100,
         anchor: [32, 0],
-        textColor: '#ffffff',
+        textColor: '#fff',
         textSize: 12
-      }, {
-        url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 45,
-        width: 55,
-        anchor: [24, 0],
-        textColor: '#fff000',
-        textSize: 11
-      }],
-      [{
-        url: 'https://googlemaps.github.io/js-marker-clusterer/images/pin.png',
-        height: 48,
-        width: 30,
-        anchor: [-18, 0],
-        textColor: '#ffffff',
-        textSize: 10,
-        iconAnchor: [15, 48]
       }]
     ];
 

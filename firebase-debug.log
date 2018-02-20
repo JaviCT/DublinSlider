@@ -1,0 +1,41 @@
+[debug] [2018-02-20T09:19:06.684Z] ----------------------------------------------------------------------
+[debug] [2018-02-20T09:19:06.684Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\javie\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-02-20T09:19:06.684Z] CLI Version:   3.17.4
+[debug] [2018-02-20T09:19:06.684Z] Platform:      win32
+[debug] [2018-02-20T09:19:06.684Z] Node Version:  v8.9.4
+[debug] [2018-02-20T09:19:06.684Z] Time:          Tue Feb 20 2018 09:19:06 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:06.684Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-20T09:19:06.699Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-20T09:19:06.699Z] > authorizing via signed-in user
+[debug] [2018-02-20T09:19:06.699Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-20T09:19:06.699Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/imFDNA9tTj7kVrj2Q1vNF1DRtDlw4Fr-p3DHLcFz2dU',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Tue Feb 20 2018 09:19:06 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:06.953Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-20T09:19:06.953Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dublinslider  
+  
+ Tue Feb 20 2018 09:19:06 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:07.710Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-20T09:19:07.710Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dublinslider/tokens  
+  
+ Tue Feb 20 2018 09:19:07 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:08.264Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\xampp\htdocs\DublinSlider'...
+[info] 
+[debug] [2018-02-20T09:19:08.279Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/dublinslider  
+  
+ Tue Feb 20 2018 09:19:08 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:09.072Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-20T09:19:09.072Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/399862458831/clients/_:getWebAppConfig  
+  
+ Tue Feb 20 2018 09:19:09 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-20T09:19:09.712Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] +  hosting: Local server: http://localhost:5000
+
