@@ -28,8 +28,6 @@ var currentInfoWindow = null;
 var query = firebase.database().ref("photos");
 
 function createMarker(){
-
-
   query.orderByChild("id").once("value")
     .then(function(snapshot) {
       var i = 0;
@@ -62,6 +60,17 @@ function createMarker(){
             '</figure>' +
             '<input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()">' +
           '</div></div>';
+          var contentStringBar = '<div class="container2"><p id="id"></p><strong class="desc2"></strong><div class="comparison2"> '+
+            '<figure class="myFigure2">' +
+              '<div class="handle2"></div>' +
+              '<div class="divisor2"></div>' +
+            '</figure>' +
+            '<input type="range" min="0" max="100" value="50" class="slider2" oninput="moveDivisor()">' +
+          '</div></div>';
+          document.getElementById("content2").innerHTML += contentStringBar;
+          
+
+          //$(".content").html(contentStringBar);
           var infowindow1 = new google.maps.InfoWindow({
             content: contentString
           });
@@ -160,25 +169,16 @@ function initMap() {
   });
 
   createMarker();
-  /*setTimeout(function() {
-    console.log(marker);
-    console.log(marker.length);
-    marker.forEach(function(elem) {
-      elem.addEventListener('click', function() {
-        id = elem.id;
-        console.log(id);
-        createClickable();
-        infowindow1.open(map, elem);
-        var t = document.getElementById('myFigure');
-        t.style.background = "url('"+before+"')";
-        t.style.backgroundSize = "700px 500px";
-        var z = document.getElementById('divisor');
-        z.style.background = "url('"+after+"')";
-        z.style.backgroundSize = "700px 500px";
-      });
-    });
-  }, 1000);*/
-
+  /*document.getElementById("btn-menu").addEventListener("click", function(){
+    console.log("algo");
+    var x = document.getElementById("search");
+    var y = document.getElementById("btn-menu");
+    if (x.style.display === "none") {
+        x.style.display = "inline";
+    } else {
+        x.style.display = "none";
+    }
+  });*/
 }
 
 function moveDivisor() {
