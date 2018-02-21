@@ -57,29 +57,37 @@ html,body{
 }
 
 input[type=text], select {
-    width: 72%;
+    width: 52%;
     padding: 12px 20px;
-    margin: 8px 8px;
+    margin: 8px 0px 8px 8px;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
     box-sizing: border-box;
     float: left;
 }
 
-input[type=submit] {
+.btn {
     width: 20%;
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 8px;
+    padding: 12px 20px;
+    margin: 8px 8px 8px 0px;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    float: right;
 }
 
-input[type=submit]:hover {
+#btn-default{
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#other-btn{
+  border-radius: 4px;
+}
+
+.btn:hover {
     background-color: #45a049;
 }
 
@@ -114,6 +122,7 @@ figure {
 	box-shadow: 0 5px 10px -2px rgba(0,0,0,0.3);
 	bottom: 0; height: 100%;
   background-repeat: no-repeat;
+  border-right: solid 4px #fff;
 
   &::before,
   &::after {
@@ -165,6 +174,10 @@ figure {
   }
 }
 
+.desc2{
+  margin: 8px 8px;
+}
+
 .container2 {
   max-width: 800px;
   max-height: 100%;
@@ -178,7 +191,7 @@ figure {
   max-height: 600px;
 	overflow: hidden;
   position: relative;
-  border: 5px solid red;
+  border: 5px solid white;
   margin: 8px 8px;
 }
 
@@ -197,9 +210,10 @@ figure {
 	background-size: cover;
 	position: absolute;
 	width: 50%;
-	box-shadow: 0 5px 10px -2px rgba(0,0,0,0.3);
+	box-shadow: 0 5px 10px -2px rgba(255,255,255,0.3);
 	bottom: 0; height: 100%;
   background-repeat: no-repeat;
+  border-right: solid 4px #fff;
 
   &::before,
   &::after {
@@ -252,12 +266,13 @@ figure {
 }
 
 input[type=range]{
+  outline: none;
 	-webkit-appearance:none;
 	-moz-appearance:none;
 	position: absolute;
 	top: 50%; left: -25px;
   transform: translateY(-50%);
-	background-color: transparent;
+	background: transparent;
 	width: calc(100% + 50px);
   z-index: 2;
 
@@ -273,10 +288,11 @@ input[type=range]::-webkit-slider-thumb {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  background: transparent;
-  border: 4px solid white;
+  background: rgba(0,0,0,0.4) url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIHZpZXdCb3g9IjAgMCAyOCAyOCI+PHBhdGggZD0iTTI4IDE0YzAgMC4yNjYtMC4xMDkgMC41MTYtMC4yOTcgMC43MDNsLTQgNGMtMC4xODcgMC4xODctMC40MzggMC4yOTctMC43MDMgMC4yOTctMC41NDcgMC0xLTAuNDUzLTEtMXYtMmgtMTZ2MmMwIDAuNTQ3LTAuNDUzIDEtMSAxLTAuMjY2IDAtMC41MTYtMC4xMDktMC43MDMtMC4yOTdsLTQtNGMtMC4xODctMC4xODctMC4yOTctMC40MzgtMC4yOTctMC43MDNzMC4xMDktMC41MTYgMC4yOTctMC43MDNsNC00YzAuMTg3LTAuMTg3IDAuNDM4LTAuMjk3IDAuNzAzLTAuMjk3IDAuNTQ3IDAgMSAwLjQ1MyAxIDF2MmgxNnYtMmMwLTAuNTQ3IDAuNDUzLTEgMS0xIDAuMjY2IDAgMC41MTYgMC4xMDkgMC43MDMgMC4yOTdsNCA0YzAuMTg3IDAuMTg3IDAuMjk3IDAuNDM4IDAuMjk3IDAuNzAzeiI+PC9wYXRoPjwvc3ZnPg==) 50%/30px 30px no-repeat;
+  border: 3px solid white;
   box-shadow: 0 0 8px 1px rgba(0,0,0,.3);
 }
+
 input[type=range]::-moz-range-track {
 	-moz-appearance:none;
 	height:15px;

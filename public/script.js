@@ -26,6 +26,9 @@ var finalId;
 var marker = [];
 var currentInfoWindow = null;
 var query = firebase.database().ref("photos");
+var slider2 = [];
+var handle2 = [];
+var z2= [];
 
 function createMarker(){
   query.orderByChild("id").once("value")
@@ -37,12 +40,11 @@ function createMarker(){
         lat = childSnapshot.val()['lat'];
         lng = childSnapshot.val()['lng'];
         prev = childSnapshot.val()['after'];
-        console.log(prev);
 
         if (lat != null || lng != null || prev != null){
           var myIcon = {
             url: prev, // url
-            scaledSize: new google.maps.Size(100, 70), // scaled size
+            scaledSize: new google.maps.Size(64, 64), // scaled size
             origin: new google.maps.Point(0,0), // origin
             anchor: new google.maps.Point(0, 0) // anchor
           };
@@ -65,12 +67,40 @@ function createMarker(){
               '<div class="handle2"></div>' +
               '<div class="divisor2"></div>' +
             '</figure>' +
-            '<input type="range" min="0" max="100" value="50" class="slider2" oninput="moveDivisor()">' +
+            '<input type="range" min="0" max="100" value="50" class="slider2" oninput="moveDivisor2('+i+')">' +
           '</div></div>';
           document.getElementById("content2").innerHTML += contentStringBar;
-          
 
-          //$(".content").html(contentStringBar);
+          slider2 = document.getElementsByClassName("slider2");
+          handle2 = document.getElementsByClassName("handle2");
+          z2 = document.getElementsByClassName("divisor2");
+
+          var t2 = document.getElementsByClassName("myFigure2");
+          var u2 = document.getElementsByClassName("container2");
+          var y2 = document.getElementsByClassName('desc2');
+
+          description = childSnapshot.val()['description'];
+          before = childSnapshot.val()['before'];
+          after = childSnapshot.val()['after'];
+
+          var img3 = new Image();
+          var img4 = new Image();
+          img3.src = after;
+          img4.src = before;
+
+          t2[i].style.background = "url('"+after+"')";
+          z2[i].style.background = "url('"+before+"')";
+          if (img3.width >= img3.height){
+            t2[i].style.backgroundSize = "500px 300px";
+            z2[i].style.backgroundSize = "500px 300px";
+            u2[i].style.backgroundSize = "500px 300px";
+          } else{
+            t2[i].style.backgroundSize = "300px 500px";
+            z2[i].style.backgroundSize = "300px 500px";
+            u2[i].style.backgroundSize = "300px 500px";
+          }
+          y2[i].innerHTML='<a href="">' + description + '</a>';
+
           var infowindow1 = new google.maps.InfoWindow({
             content: contentString
           });
@@ -103,33 +133,32 @@ function createMarker(){
                 u.style.backgroundSize = "500px 700px";
               }
               var y = document.getElementById('desc');
-              y.innerHTML=description;
+              y.innerHTML = description;
             }, 800);
 
           });
-          console.log(i);
           i = i + 1;
         }
     });
     var styles = [
       [{
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 70,
-        width: 100,
+        height: 64,
+        width: 64,
         anchor: [16, 0],
         textColor: '#fff',
         textSize: 10
       }, {
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 70,
-        width: 100,
+        height: 64,
+        width: 64,
         anchor: [24, 0],
         textColor: '#fff',
         textSize: 11
       }, {
         url: 'https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/aungierstreet2%2FAungier%20Street2%201950.jpg?alt=media&token=dbccaf2d-d973-4184-aeed-44fcb9c4d1a2',
-        height: 70,
-        width: 100,
+        height: 64,
+        width: 64,
         anchor: [32, 0],
         textColor: '#fff',
         textSize: 12
@@ -143,7 +172,6 @@ function createMarker(){
 }
 
 function createClickable(numer){
-  var query = firebase.database().ref("photos");
   query.orderByChild("id").once("value")
     .then(function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
@@ -169,19 +197,86 @@ function initMap() {
   });
 
   createMarker();
-  /*document.getElementById("btn-menu").addEventListener("click", function(){
-    console.log("algo");
-    var x = document.getElementById("search");
-    var y = document.getElementById("btn-menu");
-    if (x.style.display === "none") {
-        x.style.display = "inline";
-    } else {
-        x.style.display = "none";
-    }
-  });*/
+  $('.myType').each(function() {
+   var elem = $(this);
+
+   // Save current value of element
+   elem.data('oldVal', elem.val());
+
+   // Look for changes in the value
+   elem.bind("propertychange change click keyup input paste", function(event){
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+       // Updated stored value
+       elem.data('oldVal', elem.val());
+
+       var esto = document.getElementById("new").value;
+       $("#content2").empty();
+
+       query.orderByChild("id").once("value")
+         .then(function(snapshot) {
+           var i = 0;
+           snapshot.forEach(function(childSnapshot){
+             description = childSnapshot.val()['description'];
+             var comp = description.includes(esto);
+
+             console.log(comp);
+             if(comp == true){
+               var contentStringBar = '<div class="container2"><p id="id"></p><strong class="desc2"></strong><div class="comparison2"> '+
+                 '<figure class="myFigure2">' +
+                   '<div class="handle2"></div>' +
+                   '<div class="divisor2"></div>' +
+                 '</figure>' +
+                 '<input type="range" min="0" max="100" value="50" class="slider2" oninput="moveDivisor2('+i+')">' +
+               '</div></div>';
+               document.getElementById("content2").innerHTML += contentStringBar;
+               console.log(contentStringBar);
+
+               slider2 = document.getElementsByClassName("slider2");
+               handle2 = document.getElementsByClassName("handle2");
+               z2 = document.getElementsByClassName("divisor2");
+
+               var t2 = document.getElementsByClassName("myFigure2");
+               var u2 = document.getElementsByClassName("container2");
+               var y2 = document.getElementsByClassName('desc2');
+
+               description = childSnapshot.val()['description'];
+               before = childSnapshot.val()['before'];
+               after = childSnapshot.val()['after'];
+
+               var img3 = new Image();
+               var img4 = new Image();
+               img3.src = after;
+               img4.src = before;
+
+               t2[i].style.background = "url('"+after+"')";
+               z2[i].style.background = "url('"+before+"')";
+               if (img3.width >= img3.height){
+                 t2[i].style.backgroundSize = "500px 300px";
+                 z2[i].style.backgroundSize = "500px 300px";
+                 u2[i].style.backgroundSize = "500px 300px";
+               } else{
+                 t2[i].style.backgroundSize = "300px 500px";
+                 z2[i].style.backgroundSize = "300px 500px";
+                 u2[i].style.backgroundSize = "300px 500px";
+               }
+               y2[i].innerHTML='<a href="">' + description + '</a>';
+               i = i + 1;
+             }
+           });
+
+         });
+     }
+   });
+ });
 }
 
 function moveDivisor() {
   handle.style.left = slider.value+"%";
 	divisor.style.width = slider.value+"%";
+}
+
+function moveDivisor2(i) {
+  handle2[i].style.left = slider2[i].value+"%";
+	z2[i].style.width = slider2[i].value+"%";
 }

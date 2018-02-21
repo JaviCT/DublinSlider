@@ -1,0 +1,104 @@
+[debug] [2018-02-21T17:33:13.260Z] ----------------------------------------------------------------------
+[debug] [2018-02-21T17:33:13.262Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\javie\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy
+[debug] [2018-02-21T17:33:13.262Z] CLI Version:   3.17.4
+[debug] [2018-02-21T17:33:13.262Z] Platform:      win32
+[debug] [2018-02-21T17:33:13.262Z] Node Version:  v8.9.4
+[debug] [2018-02-21T17:33:13.263Z] Time:          Wed Feb 21 2018 17:33:13 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:13.263Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-21T17:33:13.272Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-21T17:33:13.273Z] > authorizing via signed-in user
+[debug] [2018-02-21T17:33:13.274Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-21T17:33:13.274Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/imFDNA9tTj7kVrj2Q1vNF1DRtDlw4Fr-p3DHLcFz2dU',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Feb 21 2018 17:33:13 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:13.566Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-21T17:33:13.573Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/dublinslider  
+  
+ Wed Feb 21 2018 17:33:13 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:14.375Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-21T17:33:14.376Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/dublinslider/tokens  
+  
+ Wed Feb 21 2018 17:33:14 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:15.121Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'dublinslider'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] Running command: npm --prefix %RESOURCE_DIR% run lint
+[info] +  functions: Finished running predeploy script.
+[info] i  database: checking rules syntax...
+[debug] [2018-02-21T17:33:17.952Z] >>> HTTP REQUEST PUT https://dublinslider.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+ 
+ Wed Feb 21 2018 17:33:17 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:18.715Z] <<< HTTP RESPONSE 200
+[info] +  database: rules syntax for database dublinslider is valid
+[debug] [2018-02-21T17:33:18.720Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/dublinslider  
+  
+ Wed Feb 21 2018 17:33:18 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:19.685Z] <<< HTTP RESPONSE 200
+[info] i  storage: checking storage.rules for compilation errors...
+[debug] [2018-02-21T17:33:19.687Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/dublinslider:test  
+ { source: { files: [ [Object] ] } } 
+ Wed Feb 21 2018 17:33:19 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:20.433Z] <<< HTTP RESPONSE 200
+[info] +  storage: rules file storage.rules compiled successfully
+[info] i  firestore: checking firestore.rules for compilation errors...
+[debug] [2018-02-21T17:33:20.437Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/dublinslider:test  
+ { source: { files: [ [Object] ] } } 
+ Wed Feb 21 2018 17:33:20 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:21.134Z] <<< HTTP RESPONSE 200
+[info] +  firestore: rules file firestore.rules compiled successfully
+[debug] [2018-02-21T17:33:21.140Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase experimental:functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.8.1",
+    "firebase-functions": "^0.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-02-21T17:33:21.143Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/dublinslider?view=CONSUMER_VIEW  
+  
+ Wed Feb 21 2018 17:33:21 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:21.144Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/dublinslider?view=CONSUMER_VIEW  
+  
+ Wed Feb 21 2018 17:33:21 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:22.301Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-21T17:33:22.314Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2018-02-21T17:33:22.318Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/dublinslider  
+  
+ Wed Feb 21 2018 17:33:22 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:22.319Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/dublinslider/apiKeys  
+  
+ Wed Feb 21 2018 17:33:22 GMT+0000 (Hora estándar GMT)
+[debug] [2018-02-21T17:33:23.178Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-21T17:33:23.186Z] <<< HTTP RESPONSE 200
+[info] i  storage: uploading rules storage.rules...
+[debug] [2018-02-21T17:33:23.189Z] >>> HTTP REQUEST POST https://firebaserules.googleapis.com/v1/projects/dublinslider/rulesets  
+ { source: { files: [ [Object] ] } } 
+ Wed Feb 21 2018 17:33:23 GMT+0000 (Hora estándar GMT)

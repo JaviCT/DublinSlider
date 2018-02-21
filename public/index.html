@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
     <script src="markerclusterer.js"></script>
     <meta charset="utf-8">
@@ -29,8 +29,13 @@
     </script>
     <div id="searchCont">
       <div id="search">
-        <input type="text" placeholder="Search a photo">
-        <input type="submit" title="Find" value="Find">
+        <input type="text" class="myType" id="new" placeholder="Search a photo"></input>
+        <button class="btn btn-default" id="btn-default" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+        <button class="btn" id="other-btn" type="submit">
+             About
+        </button>
         <p>Hola esto es un texto de prueba</p>
         <hr>
         <div id="content2">
