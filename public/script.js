@@ -11,7 +11,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-var storage = firebase.storage();
+var storage = firebase.storage().ref();
 var map;
 var name;
 var nameId;
@@ -29,11 +29,15 @@ var query = firebase.database().ref("photos");
 var slider2 = [];
 var handle2 = [];
 var z2= [];
+var newLat;
+var newLng;
+var newId = 1;
 
 function createMarker(){
   query.orderByChild("id").once("value")
     .then(function(snapshot) {
       var i = 0;
+      newId = 1;
       snapshot.forEach(function(childSnapshot) {
         name = childSnapshot.key;
         nameId = childSnapshot.val()['id'];
@@ -138,6 +142,7 @@ function createMarker(){
 
           });
           i = i + 1;
+          newId = newId + 1;
         }
     });
     var styles = [
@@ -189,14 +194,155 @@ function createClickable(numer){
     });
 }
 
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('address').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
+        draggable:true,
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+      var position = results[0].geometry.location;
+      newLat = parseFloat(position.lat().toFixed(6));
+      newLng = parseFloat(position.lng().toFixed(6));
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
 function initMap() {
   var dublin = {lat: 53.355924, lng: -6.329348};
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
     center: dublin
   });
-
   createMarker();
+
+  $('#btn-about').click(function(){
+    $("#content2").empty();
+    var contentStringAbout = '<label>After photo:</label><br><input id="photoAfter" name="after" class="form1" type="file"><br>' +
+    '<label>Before photo:</label><br><input id="photoBefore" class="form1" name="before" type="file"><br>' +
+    '<label>Description:</label><br><input id ="myDescription" class="form1" name="description" type="text"><br>' +
+    '<div class="form12"><label>Enter a direction, drag and set the marker:</label><br><input class="form11" id="address" name="location" type="text">' +
+    '<button class="btn btn-default" id="submit" name="submit" type="submit">Find</button></div>' +
+    '<div id="map2"></div>' +
+    '<button class="btn btn-default" id="send" name="submit" type="submit">Send</button>';
+    document.getElementById("content2").innerHTML += contentStringAbout;
+    var dublin2 = {lat: 53.355924, lng: -6.329348};
+    var map2 = new google.maps.Map(document.getElementById('map2'), {
+      zoom: 12,
+      center: dublin2
+    });
+    var directionsService = new google.maps.DirectionsService;
+    var direction = new google.maps.DirectionsRenderer({
+      draggable:true,
+      map: map2
+    })
+    var geocoder = new google.maps.Geocoder();
+    document.getElementById('submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map2);
+    });
+
+    $('#send').click(function(){
+      var fileAfter = $('#photoAfter').get(0).files[0];
+      var fileBefore =  $('#photoBefore').get(0).files[0];
+      var bla = $('#myDescription').val();
+      if(fileAfter == null || fileBefore == null){
+        alert("You should enter image");
+      } else{
+        var nameAfter = fileAfter.name;
+        var nameBefore = fileBefore.name;
+        var metadataAfter = { contentType: fileAfter.type };
+        var metadataBefore = { contentType: fileBefore.type };
+        var taskAfter = storage.child(bla + "/" + nameAfter).put(fileAfter, metadataAfter);
+        var taskBefore = storage.child(bla + "/" + nameBefore).put(fileBefore, metadataBefore);
+        // Listen for state changes, errors, and completion of the upload.
+        taskAfter.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          function(snapshot) {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+              case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          }, function(error) {
+
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        }, function() {
+          // Upload completed successfully, now we can get the download URL
+          taskBefore.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+            function(snapshot) {
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                  console.log('Upload is paused');
+                  break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                  console.log('Upload is running');
+                  break;
+              }
+            }, function(error) {
+
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case 'storage/unauthorized':
+                // User doesn't have permission to access the object
+                break;
+
+              case 'storage/canceled':
+                // User canceled the upload
+                break;
+
+              case 'storage/unknown':
+                // Unknown error occurred, inspect error.serverResponse
+                break;
+            }
+          }, function() {
+            // Upload completed successfully, now we can get the download URL
+            var urlBefore = taskBefore.snapshot.downloadURL;
+            console.log(urlBefore);
+            var urlAfter = taskAfter.snapshot.downloadURL;
+            console.log(urlAfter);
+            console.log(bla);
+            console.log(newLat);
+            console.log(newLng);
+            console.log(newId);
+            writeUserData(urlAfter, urlBefore, bla, newId, newLat, newLng);
+            $("#content2").empty();
+            createMarker();
+            google.maps.event.trigger(map, 'resize');
+          });
+        });
+      }
+
+    });
+  });
+
   $('.myType').each(function() {
    var elem = $(this);
 
@@ -269,6 +415,17 @@ function initMap() {
      }
    });
  });
+}
+
+function writeUserData(after, before, description, id, lat, long) {
+  firebase.database().ref('photos/' + description).set({
+    after: after,
+    before: before,
+    description : description,
+    id : id,
+    lat : lat,
+    lng : long
+  });
 }
 
 function moveDivisor() {
