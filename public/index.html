@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
     <script src="markerclusterer.js"></script>
@@ -27,25 +28,29 @@
     <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfkD357eLUWtkbqs35bhHFiB4QHtT1N_0&callback=initMap">
     </script>
-    <div id="searchCont">
+    <div class="searchCont">
       <div id="search">
-        <input type="text" class="myType" id="new" placeholder="Search a photo"></input>
+        <input type="text" class="myType" id="new" placeholder="Address"></input>
         <button class="btn btn-default" id="btn-default" type="submit">
           <i class="fas fa-search"></i>
         </button>
         <button class="btn" id="btn-about" type="submit">
              About
         </button>
-        <p>Hola esto es un texto de prueba</p>
         <hr>
         <div id="content2">
         </div>
       </div>
       <button type="button" name="Menu" id="btn-menu">hola</button>
     </div>
-    <div id="map"></div>
-    <div id="logo">
-      <img id="logo" src="https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/logo.png?alt=media&token=e9c5ef31-f887-4fc3-a5d2-5164f3f9cccc"></img>
+    <div>
+      <div class="material-icon hamburger menuToggle" data-icon="hamburger">
+          <span class="first"></span>
+          <span class="second"></span>
+          <span class="third"></span>
+      </div>
     </div>
+    <div id="map"></div>
+      <a href="https://www.littlemuseum.ie/"><img id="logo" src="https://firebasestorage.googleapis.com/v0/b/dublinslider.appspot.com/o/logo.png?alt=media&token=e9c5ef31-f887-4fc3-a5d2-5164f3f9cccc"></img></a>
   </body>
 </html>
