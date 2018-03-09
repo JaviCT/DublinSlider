@@ -34,6 +34,7 @@ var z2= [];
 var newLat;
 var newLng;
 var newId = 1;
+var phone;
 
 function createMarker(){
   $("#content2").empty();
@@ -67,8 +68,8 @@ function createMarker(){
           var slider = document.getElementById("slider");
           var handle = document.getElementById("handle");
 
-          var contentString = '<div id="container"><div id="close"><i id="icon" class="fas fa-times"></i><a href="#"><span></span></a></div><div id="comparison"> '+
-            '<div class="textContainer"><strong id="desc"></strong></div><figure id="myFigure">' +
+          var contentString = '<div id="container"><div id="comparison"> '+
+            '<div class="textContainer"><strong id="desc"></strong><div id="close"><div id="orangeBox"><span id="x">X</span></div><span></span></a></div></div><figure id="myFigure">' +
               '<div class="dateContainer1"><strong id="datBefore"></strong></div>' +
               '<div class="dateContainer2"><strong id="datAfter"></strong></div>' +
               '<div id="handle"></div>' +
@@ -76,7 +77,7 @@ function createMarker(){
             '</figure>' +
             '<input type="range" min="0" max="100" value="50" id="slider" oninput="moveDivisor()">' +
           '</div><strong class="dateAfter"></strong><strong class="dateBefore"></strong></div>';
-          var contentStringBar = '<div class="container2"><p id="id"></p><div class="comparison2"> '+
+          var contentStringBar = '<div class="container2"><div class="comparison2"> '+
             '<figure class="myFigure2">' +
               '<div class="textContainer2"><strong class="desc2"></strong></div>' +
               '<div class="dateContainer1"><strong class="dateBefore"></strong></div>' +
@@ -165,14 +166,32 @@ function createMarker(){
               var z = document.getElementById('divisor');
               var u = document.getElementById('container');
               z.style.background = "url('"+before+"')";
+              var element2 = document.getElementById("comparison");
               if (img.width >= img.height){
-                t.style.backgroundSize = "700px 500px";
-                z.style.backgroundSize = "700px 500px";
-                u.style.backgroundSize = "700px 500px";
+                if (phone){
+                  element2.classList.add("comparisonP");
+                  t.style.backgroundSize = "300px 300px";
+                  z.style.backgroundSize = "300px 300px";
+                  u.style.backgroundSize = "300px 300px";
+                }else{
+                  element2.classList.add("comparisonD");
+                  t.style.backgroundSize = "700px 500px";
+                  z.style.backgroundSize = "700px 500px";
+                  u.style.backgroundSize = "700px 500px";
+                }
+
               } else{
-                t.style.backgroundSize = "500px 700px";
-                z.style.backgroundSize = "500px 700px";
-                u.style.backgroundSize = "500px 700px";
+                if (phone){
+                  element2.classList.add("comparisonP");
+                  t.style.backgroundSize = "300px 300px";
+                  z.style.backgroundSize = "300px 300px";
+                  u.style.backgroundSize = "300px 300px";
+                }else{
+                  element2.classList.add("comparisonD");
+                  t.style.backgroundSize = "700px 500px";
+                  z.style.backgroundSize = "700px 500px";
+                  u.style.backgroundSize = "700px 500px";
+                }
               }
               var y = document.getElementById('desc');
               y.innerHTML = description;
@@ -181,7 +200,7 @@ function createMarker(){
               datAfter.innerHTML = dAfter;
               datBefore.innerHTML = dBefore;
             }, 800);
-            document.getElementById("close").addEventListener('click', function() {
+            $( "#close" ).click(function() {
               infowindow1.close();
             });
 
@@ -257,7 +276,27 @@ function geocodeAddress(geocoder, resultsMap) {
   });
 }
 
+function detectBrowser() {
+  var useragent = navigator.userAgent;
+  var mapdiv = document.getElementById("map");
+
+  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+    phone = true;
+  } else {
+    phone = false;
+  }
+}
+
 function initMap() {
+  detectBrowser();
+  var element = document.getElementById("miLogo");
+  if (phone){
+
+    element.classList.add("logoP");
+  }
+  else {
+    element.classList.add("logo");
+  }
   var dublin = {lat: 53.352873, lng: -6.277350};
   var styleOptions = [
           {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -595,6 +634,7 @@ function initMap() {
               $("#content2").empty();
               createMarker();
               google.maps.event.trigger(map, 'resize');
+              newId = newId + 1;
             });
           });
         }
