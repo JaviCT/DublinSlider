@@ -22,7 +22,11 @@ html,body{
 }
 
 #send{
-  width: 95%;
+  width: 45%;
+  margin: 8px;
+}
+#cancel{
+  width: 45%;
   margin: 8px;
 }
 
@@ -391,13 +395,102 @@ figure {
   z-index: 1;
 }
 
-#orangeBox {
-    color: rgba(0,0,0,0.7);
-    font-weight: bold;
-    text-align: center;
-    height: 100%;
-    width: 100%;
+/*el nuevo submenu*/
+
+#menu{
+  position: absolute;
+  z-index: 50;
+  font-size: 30px;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 50px;
 }
+
+.buttons {
+	background-color: #004CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "arial";
+  width: 50px;
+}
+
+/* reset our lists to remove bullet points and padding */
+.mainmenu, .submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mainmanu {
+	position:relative;
+	z-index: 15000001;
+}
+
+/* make ALL links (main and submenu) have padding and background color */
+.mainmenu a {
+  text-decoration: none;
+  width: 100%;
+}
+
+.mainmenu li {
+	float: left;
+  width: 100%;
+}
+
+.mainmenu li:hover .submenu {
+  max-height: 400px;
+  display: block;
+  background-color: rgba(0,0,0,0.2);
+}
+
+/*
+  we now overwrite the background-color for .submenu links only.
+  CSS reads down the page, so code at the bottom will overwrite the code at the top.
+*/
+
+.submenu a {
+  background-color: #999;
+  width: 80px;
+  margin-left: 20px;
+}
+
+/* hover behaviour for links inside .submenu */
+.submenu a:hover {
+  background-color: #666;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+  overflow: hidden;
+  max-height: 0;
+  -webkit-transition: all 0.5s ease-out;
+  position:absolute;
+}
+
+.label {
+	width: 200px;
+	margin: 5px;
+}
+
+.content {
+	position:relative;
+	height:500px;
+	background-color:white;
+	opacity:0.9;
+	clear: both;
+	z-index:1;
+}
+
+/*fin nuevo submenu*/
 
 #icon {
   color: rgba(0,0,0,0.7);
