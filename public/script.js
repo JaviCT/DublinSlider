@@ -47,8 +47,8 @@ var contentStringAbout2 = '<div id="contenedor" style="background-color:white;">
 '<label class="form15">Before photo:</label><label>Year:</label><br><input id="photoBefore" class="form13" name="before" type="file"><input id ="daBefore" class="form14" name="daBefore" type="text"><br>' +
 '<label>Description:</label><br><input id ="myDescription" class="form1" name="description" type="text"><br>' +
 '<div class="form12"><label>Enter a direction, drag and set the marker:</label><br><input class="form11" id="address" name="location" type="text">' +
-'<button class="btn btn-default" id="submit" name="submit" type="submit">Find</button></div>' +
-'<div id="map2"></div>' +
+'<button class="btn btn-default" id="submit2" name="submit" type="submit">Find</button></div>' +
+'<div id="map3"></div>' +
 '<button class="btn btn-default" id="send2" name="submit" type="submit">Send</button><button class="btn btn-default" id="cancel" name="submit" type="submit">cancel</button></div>';
 
 var contentString2 = '<div id="comparison"> '+
@@ -229,9 +229,9 @@ function createMarker(){
                   u.style.backgroundSize = "300px 300px";
                 }else{
                   element2.classList.add("comparisonD");
-                  t.style.backgroundSize = "700px 500px";
-                  z.style.backgroundSize = "700px 500px";
-                  u.style.backgroundSize = "700px 500px";
+                  t.style.backgroundSize = "500px 700px";
+                  z.style.backgroundSize = "500px 700px";
+                  u.style.backgroundSize = "500px 700px";
                 }
               }
               var y = document.getElementById('desc');
@@ -248,8 +248,9 @@ function createMarker(){
             $( "#btn-modify" ).click(function() {
               $("#container").empty();
               document.getElementById("container").innerHTML += contentStringAbout2;
+
               var dublin2 = {lat: 53.355924, lng: -6.329348};
-              var map2 = new google.maps.Map(document.getElementById('map2'), {
+              var map2 = new google.maps.Map(document.getElementById('map3'), {
                 zoom: 12,
                 center: dublin2
               });
@@ -259,28 +260,30 @@ function createMarker(){
                 map: map2
               })
               var geocoder = new google.maps.Geocoder();
-              document.getElementById('submit').addEventListener('click', function() {
+              document.getElementById('submit2').addEventListener('click', function() {
                 geocodeAddress(geocoder, map2);
-              });
-              $("#cancel").click(function(){
-                $("#container").empty();
-                document.getElementById("container").innerHTML += contentString2;
-                infowindow1.close();
               });
             });
 
-            $( "#btn-remove" ).click(function() {
+            $("#cancel").click(function(){
+              $("#container").empty();
+              document.getElementById("container").innerHTML += contentString2;
               infowindow1.close();
+            });
+
+            $( "#btn-remove" ).click(function() {
+              alert("Sorry, you are not authorized to perform this action, please contact us at the following email address for any suggestions: javier@evercam.io");
+              /*infowindow1.close();
               query.orderByChild('id').equalTo(finalId)
                   .once('value').then(function(snapshot) {
                       snapshot.forEach(function(childSnapshot) {
                       //remove each child
                       query.child(childSnapshot.key).remove();
                   });
-              });
+              });*/
             });
 
-            $( "#send2" ).click(function() {
+            $("#send2").click(function() {
               var fileAfter = $('#photoAfter').get(0).files[0];
               var fileBefore =  $('#photoBefore').get(0).files[0];
               var bla = $('#myDescription').val();
@@ -297,29 +300,35 @@ function createMarker(){
                         update[key]={
                           after : fileAfter
                         }
+                        console.log("done");
                       }
                       if(fileBefore != null){
                         update[key]={
                           before : fileBefore
                         }
+                        console.log("done");
                       }
                       if(bla != null){
                         update[key]={
-                          description : bal
+                          description : bla
                         }
+                        console.log("done");
                       }
                       if(daAfter != null){
                         update[key]={
                           dateAfter : daAfter
                         }
+                        console.log("done");
                       }
                       if(daBefore != null){
                         update[key]={
                           dateBefore : daBefore
                         }
+                        console.log("done");
                       }
                   });
               });
+              infowindow1.close();
             });
 
           });
@@ -519,6 +528,7 @@ function initMap() {
     zoom: 15,
     center: dublin,
     mapTypeControl: true,
+    streetViewControl: false,
     mapTypeControlOptions: {
         style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
         position: google.maps.ControlPosition.TOP_CENTER,
@@ -652,7 +662,7 @@ function initMap() {
        var esto = document.getElementById("new").value;
        $("#content2").empty();
 
-       query.orderByChild("id").once("value")
+       query.orderByChild("dateBefore").once("value")
          .then(function(snapshot) {
            var i = 0;
            snapshot.forEach(function(childSnapshot){
