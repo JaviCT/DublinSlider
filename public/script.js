@@ -79,10 +79,7 @@ function createMarker(){
         lat = childSnapshot.val()['lat'];
         lng = childSnapshot.val()['lng'];
         prev = childSnapshot.val()['before'];
-
-        while (nameId != newId){
-          newId = newId + 1;
-        }
+        console.log(nameId);
 
         if (lat != null || lng != null || prev != null){
           var myIcon = {
@@ -133,10 +130,6 @@ function createMarker(){
             content: contentString
           });
 
-          $('#container2').on('click', function(e) {
-              alert(1);
-          });
-
           slider2 = document.getElementsByClassName("slider2");
           handle2 = document.getElementsByClassName("handle2");
           z2 = document.getElementsByClassName("divisor2");
@@ -159,6 +152,7 @@ function createMarker(){
           img3.src = after;
           img4.src = before;
 
+          //console.log(i);
           t2[i].style.background = "url('"+after+"')";
           z2[i].style.background = "url('"+before+"')";
           if (img3.width >= img3.height){
@@ -191,6 +185,7 @@ function createMarker(){
 
            google.maps.event.addListener(marker[i], 'click', function() {
             id = this.id;
+            console.log("myid: " + id);
             createClickable(id);
             if (currentInfoWindow != null) {
               currentInfoWindow.close();
@@ -338,6 +333,9 @@ function createMarker(){
           i = i + 1;
           newId = newId + 1;
         }
+        else{
+          console.log("error: " + i);
+        }
     });
 
     var styles = [
@@ -378,6 +376,9 @@ function createClickable(numer){
           description = childSnapshot.val()['description'];
           before = childSnapshot.val()['before'];
           after = childSnapshot.val()['after'];
+          console.log(description);
+          console.log(before);
+          console.log(after);
         }
       });
     });
@@ -662,7 +663,7 @@ function initMap() {
        var esto = document.getElementById("new").value;
        $("#content2").empty();
 
-       query.orderByChild("dateBefore").once("value")
+       query.orderByChild("id").once("value")
          .then(function(snapshot) {
            var i = 0;
            snapshot.forEach(function(childSnapshot){
